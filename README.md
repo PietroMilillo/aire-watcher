@@ -1,9 +1,24 @@
 # AIRE / Prenot@mi appointment watcher
 
-Checks the Houston consulate's Prenot@mi booking portal 4x/day for open slots
-on **"Registrazione Nascite per casi A1, A2, o B"** and notifies you the
+Checks a Prenot@mi booking portal 4x/day for open slots and notifies you the
 moment one might be open. It never logs in for you, never solves a CAPTCHA,
-and never books anything — it only watches and notifies.
+and never books anything — it only watches and notifies. Prenot@mi is the
+one booking system every Italian consulate worldwide uses, so the same code
+works for any consulate and any service — this exact setup was first built
+and run, start to finish, in one evening against the Houston consulate's
+**"Registrazione Nascite per casi A1, A2, o B"** (registering a birth with
+the anagrafe), which is why that's still the live example throughout this
+README and in `config.example.json`.
+
+## This is also a Claude Skill
+
+Beyond running it yourself by hand, there's a `SKILL.md` in this repo: point
+an AI coding agent (Claude Code or similar) at it and it can walk a *different*
+person through adapting this to *their* consulate and service — including
+researching, live, what documents that specific service requires and which
+of them need to be signed, before any setup starts. See `SKILL.md` and
+`references/` for how that works; everything below is still the plain,
+do-it-yourself manual version.
 
 ## What's in here
 
