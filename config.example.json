@@ -1,0 +1,42 @@
+{
+  "_comment": "Copy this file to config.json and fill in the fields below during the guided dry run. JSON has no comments, so this _comment key is just documentation and is ignored by watcher.py.",
+  "profile_dir": "./chrome_profile",
+  "start_url": "https://prenotami.esteri.it/",
+  "_comment_click_path": "Confirmed live on 2026-09-30 in Pietro's own logged-in Prenot@mi session: from /UserArea, click 'Prenota' in the nav, which lands on /Services (a table of every service this consulate offers). The PRENOTA button sits in the same table row as the service description text, so we target it directly by row text instead of needing to type into the search box (watcher.py only supports 'click' steps, by design, to keep the safety surface small). Do NOT include any step that clicks something containing confirm/conferma/invia/submit/book now — watcher.py additionally refuses those even if listed here (note 'prenota' itself is NOT in that blocklist, since clicking PRENOTA here only opens the booking/calendar flow for this service — it is not the final booking confirmation).",
+  "click_path": [
+    {
+      "action": "click",
+      "selector": "text=Prenota"
+    },
+    {
+      "action": "click",
+      "selector": "tr:has-text('Registrazione Nascite per casi A1, A2, o B') >> text=Prenota"
+    }
+  ],
+  "availability_selectors": {
+    "_comment": "no_slots_text is VERBATIM the real message Prenot@mi showed us live on 2026-09-30 when we clicked PRENOTA on this exact service and it was sold out: 'Stante l'elevata richiesta i posti disponibili per il servizio scelto sono esauriti.' (modal dialog with an OK button). We have NOT seen what the page looks like when slots genuinely exist (never happened during setup), so slot_candidate_selector below is a best-effort guess only. By design this is conservative either way: if the sold-out text is present -> no_slots (logged only, no notification spam). If it is ABSENT and the calendar selector also finds nothing recognizable -> 'unknown', which always notifies with a screenshot for manual review rather than silently assuming no slots. So even a wrong/missing slot_candidate_selector cannot cause a real opening to be missed silently.",
+    "no_slots_text": [
+      "stante l'elevata richiesta i posti disponibili per il servizio scelto sono esauriti",
+      "non ci sono date disponibili",
+      "nessuna disponibilit"
+    ],
+    "slot_candidate_selector": "a.day:not(.disabled), td.day:not(.disabled), .calendar-day.available, input[name='SelectedDay'], .ui-datepicker-calendar a"
+  },
+  "login_check": {
+    "logged_out_text": [
+      "accedi per continuare",
+      "effettuare il login"
+    ]
+  },
+  "imessage_recipient": "REPLACE_WITH_YOUR_APPLE_ID_EMAIL_OR_PHONE",
+  "timeout_ms": 60000,
+  "max_retries": 3,
+  "retry_backoff_seconds": [
+    30,
+    90,
+    240
+  ],
+  "screenshot_dir": "./logs",
+  "state_file": "./logs/last_state.json",
+  "startup_jitter_seconds": 90
+}

@@ -1,0 +1,20 @@
+# Real config with personal data (phone number, etc.) — never commit this.
+# Only config.example.json (a template with placeholders) is tracked.
+config.json
+
+# Authenticated browser session (cookies) — this is equivalent to a login
+# credential and must never be committed, even to a private repo.
+chrome_profile/
+chrome_profile_*/
+
+# Runtime logs, screenshots (may contain personal document scans captured
+# in screenshots), and state.
+logs/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# OS
+.DS_Store

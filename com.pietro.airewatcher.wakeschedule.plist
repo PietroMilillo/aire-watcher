@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.pietro.airewatcher.wakeschedule</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/Users/pmilillo/Documents/sw/aire_watcher/.venv/bin/python3</string>
+        <string>/Users/pmilillo/Documents/sw/aire_watcher/schedule_wakes.py</string>
+    </array>
+
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Hour</key>
+        <integer>5</integer>
+        <key>Minute</key>
+        <integer>10</integer>
+    </dict>
+
+    <key>RunAtLoad</key>
+    <true/>
+
+    <key>StandardOutPath</key>
+    <string>/Users/pmilillo/Documents/sw/aire_watcher/logs/wakeschedule.out.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/pmilillo/Documents/sw/aire_watcher/logs/wakeschedule.err.log</string>
+</dict>
+</plist>
+
