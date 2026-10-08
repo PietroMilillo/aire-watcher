@@ -539,6 +539,22 @@ def main() -> None:
                     # Only transient errors (caught above) fall through here.
                     if attempt + 1 >= max_retries:
                         logging.error("Maximum retry attempts reached; giving up for this run.")
+                        # Every other terminal path in this script (logged_out,
+                        # captcha, unknown) notifies before giving up — this one
+                        # didn't, which means a broken selector or a page change
+                        # could exhaust retries silently, run after run, with
+                        # nothing but a log line nobody is watching in real time.
+                        notify_all(
+                            title="AIRE watcher: check failed",
+                            message=(
+                                f"Gave up after {max_retries} attempts this run — "
+                                "something kept failing before the page could be "
+                                "read (see watcher.log for the actual error). This "
+                                "run could not tell whether a slot is open. The "
+                                "next scheduled check will try again."
+                            ),
+                            imessage_recipient=config.get("imessage_recipient"),
+                        )
                         break
 
                     backoff = backoff_list[attempt] if attempt < len(backoff_list) else backoff_list[-1]
